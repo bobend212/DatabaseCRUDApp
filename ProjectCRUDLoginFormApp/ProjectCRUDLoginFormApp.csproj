@@ -50,57 +50,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminAddUsers.cs">
+    <Compile Include="Source\AdminAddUsers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdminAddUsers.Designer.cs">
+    <Compile Include="Source\AdminAddUsers.Designer.cs">
       <DependentUpon>AdminAddUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdminPanel.cs">
+    <Compile Include="Source\AdminPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdminPanel.Designer.cs">
+    <Compile Include="Source\AdminPanel.Designer.cs">
       <DependentUpon>AdminPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdminUpdateUser.cs">
+    <Compile Include="Source\AdminUpdateUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdminUpdateUser.Designer.cs">
+    <Compile Include="Source\AdminUpdateUser.Designer.cs">
       <DependentUpon>AdminUpdateUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="DragControl.cs">
+    <Compile Include="Source\DragControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IValidators.cs" />
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Source\IValidators.cs" />
+    <Compile Include="Source\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="Source\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Source\Program.cs" />
     <Compile Include="ProjectCRUDLoginFormDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectCRUDLoginFormDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationForm.cs">
+    <Compile Include="Source\RegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrationForm.Designer.cs">
+    <Compile Include="Source\RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AdminAddUsers.resx">
+    <EmbeddedResource Include="Source\AdminAddUsers.resx">
       <DependentUpon>AdminAddUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdminPanel.resx">
+    <EmbeddedResource Include="Source\AdminPanel.resx">
       <DependentUpon>AdminPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdminUpdateUser.resx">
+    <EmbeddedResource Include="Source\AdminUpdateUser.resx">
       <DependentUpon>AdminUpdateUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="Source\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -113,7 +113,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RegistrationForm.resx">
+    <EmbeddedResource Include="Source\RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
