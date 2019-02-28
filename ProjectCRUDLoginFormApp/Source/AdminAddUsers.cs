@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjectCRUDLoginFormApp
@@ -22,6 +16,7 @@ namespace ProjectCRUDLoginFormApp
             InitializeComponent();
         }
 
+        #region Button Methods
         private void bClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -32,8 +27,9 @@ namespace ProjectCRUDLoginFormApp
             AddNewRecord();
             loginForm.Hide();
         }
+        #endregion
 
-
+        #region Validators
         public bool CheckIfLoginExist()
         {
             using (SqlConnection sqlConn = new SqlConnection(connectionString))
@@ -105,41 +101,49 @@ namespace ProjectCRUDLoginFormApp
             }
             else if (CheckIfLoginExist() == false)
             {
-                MessageBox.Show("This Login already exist, choose different!", "Wrong Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("This Login already exist, choose different!", "Login exist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (CheckIfEmailExist() == false)
             {
-                MessageBox.Show("This EMAIL already exist, choose different!", "Wrong Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("This EMAIL already exist, choose different!", "Email exist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (EmailValidator() == false)
             {
-                MessageBox.Show("EMAIL is INCORRECT!");
+                MessageBox.Show("Wrong email");
             }
             else if (PasswordValidation() == false)
             {
                 MessageBox.Show("Password MUST contain:" + "\n"
                     + "- Min. 8 characters" + "\n" + "- Max. 15 characters" + "\n"
                     + "- Min. One uppercase and lowercase letter" + "\n"
-                    + "- Min. One number.");
+                    + "- Min. One number.", "Password requirements", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else
             {
-                using (SqlConnection sqlConn = new SqlConnection(connectionString))
-                {
-                    sqlConn.Open();
-                    SqlCommand sqlCmd = new SqlCommand("spUserRegistration", sqlConn);
-
-                    sqlCmd.CommandType = CommandType.StoredProcedure;
-                    sqlCmd.Parameters.AddWithValue("@FirstName", txtFirstNameAdminPanel.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@LastName", txtLastNameAdminPanel.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Email", txtEmailAdminPanel.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Login", txtLoginAdminPanel.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Password", txtPasswordAdminPanel.Text.Trim());
-                    sqlCmd.ExecuteNonQuery();
-                    this.Hide();
-                    MessageBox.Show("ACCOUNT CREATED SUCCESSFULLY!", "New Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                AddNewRecordByAdmin();
             }
         }
+        #endregion
+
+        #region Other Methods
+        private void AddNewRecordByAdmin()
+        {
+            using (SqlConnection sqlConn = new SqlConnection(connectionString))
+            {
+                sqlConn.Open();
+                SqlCommand sqlCmd = new SqlCommand("spUserRegistration", sqlConn);
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.Parameters.AddWithValue("@FirstName", txtFirstNameAdminPanel.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@LastName", txtLastNameAdminPanel.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Email", txtEmailAdminPanel.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Login", txtLoginAdminPanel.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Password", txtPasswordAdminPanel.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Role", comboRoleAdminPanel.Text.Trim());
+                sqlCmd.ExecuteNonQuery();
+                this.Hide();
+                MessageBox.Show("ACCOUNT CREATED SUCCESSFULLY!", "New Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        #endregion
     }
 }

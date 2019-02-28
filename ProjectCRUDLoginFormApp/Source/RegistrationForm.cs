@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
@@ -37,7 +31,7 @@ namespace ProjectCRUDLoginFormApp
         }
         #endregion
 
-        #region Validate Methods
+        #region Validations
 
         public void ClearAllFields()
         {
@@ -138,26 +132,33 @@ namespace ProjectCRUDLoginFormApp
             }
             else
             {
-                using (SqlConnection sqlConn = new SqlConnection(connectionString))
-                {
-                    sqlConn.Open();
-                    SqlCommand sqlCmd = new SqlCommand("spUserRegistration", sqlConn);
-
-                    sqlCmd.CommandType = CommandType.StoredProcedure;
-                    sqlCmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Login", txtLoginRegistration.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Password", txtPasswordRegistration.Text.Trim());
-                    sqlCmd.ExecuteNonQuery();
-                    ClearAllFields();
-                    this.Hide();
-                    loginForm.Show();
-                    MessageBox.Show("ACCOUNT CREATED SUCCESSFULLY!", "New Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                AddNewRecordAsUser();
             }
         }
+        #endregion
 
+        #region Other Methods
+        private void AddNewRecordAsUser()
+        {
+            using (SqlConnection sqlConn = new SqlConnection(connectionString))
+            {
+                sqlConn.Open();
+                SqlCommand sqlCmd = new SqlCommand("spUserRegistration", sqlConn);
+
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Login", txtLoginRegistration.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Password", txtPasswordRegistration.Text.Trim());
+                sqlCmd.Parameters.AddWithValue("@Role", txtRole.Text.Trim());
+                sqlCmd.ExecuteNonQuery();
+                ClearAllFields();
+                this.Hide();
+                loginForm.Show();
+                MessageBox.Show("ACCOUNT CREATED SUCCESSFULLY!", "New Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
         #endregion
 
     }

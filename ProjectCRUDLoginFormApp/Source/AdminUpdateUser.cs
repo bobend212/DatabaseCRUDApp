@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace ProjectCRUDLoginFormApp
 {
@@ -15,7 +9,8 @@ namespace ProjectCRUDLoginFormApp
     {
         string connectionString = @"Data Source = DESKTOP-3P9I28U\MATEUSZSQL; Initial Catalog = ProjectCRUDLoginForm; Integrated Security =True";
 
-        public AdminUpdateUser(string ID, string Role, string FirstName, string LastName, string Email, string Login, string Password )
+        #region Constructor
+        public AdminUpdateUser(string ID, string Role, string FirstName, string LastName, string Email, string Login, string Password)
         {
             InitializeComponent();
             
@@ -26,9 +21,10 @@ namespace ProjectCRUDLoginFormApp
             txtPasswordAdminPanelUPD.Text = Password;
             comboRoleAdminPanelUPD.Text = Role;
             txtIDAdminPanelUPD.Text = ID;
-            
         }
+        #endregion
 
+        #region Button Methods
         private void bClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -38,28 +34,28 @@ namespace ProjectCRUDLoginFormApp
         {
             UpdatingRecord();     
         }
+        #endregion
 
-
+        #region Other Methods
         private void UpdatingRecord()
         {
             using (SqlConnection sqlConn = new SqlConnection(connectionString))
             {
                 sqlConn.Open();
-                string updateQuery = "UPDATE tblUsers SET " +
-                    "FirstName = '" + txtFirstNameAdminPanelUPD.Text +
-                    "', LastName = '" + txtLastNameAdminPanelUPD.Text +
-                    "', Email = '" + txtEmailAdminPanelUPD.Text +
-                    "', Login = '" + txtLoginAdminPanelUPD.Text +
-                    "', Password = '" + txtPasswordAdminPanelUPD.Text +
-                    "', Role = '" + comboRoleAdminPanelUPD.Text +
-                    "' WHERE ID = '" + txtIDAdminPanelUPD.Text + "'";
-                SqlDataAdapter adapter = new SqlDataAdapter(updateQuery, sqlConn);
-                adapter.SelectCommand.ExecuteNonQuery();
-                MessageBox.Show("Record updated", "UPDATE");
+                SqlCommand sqlCmd = new SqlCommand("spUsersUpdateAsAdmin", sqlConn);
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.Parameters.AddWithValue("@FirstName", txtFirstNameAdminPanelUPD.Text);
+                sqlCmd.Parameters.AddWithValue("@LastName", txtLastNameAdminPanelUPD.Text);
+                sqlCmd.Parameters.AddWithValue("@Email", txtEmailAdminPanelUPD.Text);
+                sqlCmd.Parameters.AddWithValue("@Login", txtLoginAdminPanelUPD.Text);
+                sqlCmd.Parameters.AddWithValue("@Password", txtPasswordAdminPanelUPD.Text);
+                sqlCmd.Parameters.AddWithValue("@Role", comboRoleAdminPanelUPD.Text);
+                sqlCmd.Parameters.AddWithValue("@ID", txtIDAdminPanelUPD.Text);
+                sqlCmd.ExecuteNonQuery();
+                MessageBox.Show("Record updated successfully!", "UPDATED", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }
-
-
+        #endregion
     }
 }

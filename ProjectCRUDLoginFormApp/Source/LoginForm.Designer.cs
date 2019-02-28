@@ -124,7 +124,7 @@
             // 
             this.lDragControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lDragControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lDragControl.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lDragControl.Font = new System.Drawing.Font("Times New Roman", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lDragControl.ForeColor = System.Drawing.Color.Gray;
             this.lDragControl.Location = new System.Drawing.Point(0, 0);
             this.lDragControl.Name = "lDragControl";
