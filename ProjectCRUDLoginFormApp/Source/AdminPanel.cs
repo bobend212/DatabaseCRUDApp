@@ -11,7 +11,7 @@ namespace ProjectCRUDLoginFormApp
 
         public String Uname { get; set; }
         public String Lname { get; set; }
-
+        DataTable dt;
         public AdminPanel()
         {
             InitializeComponent();
@@ -96,7 +96,7 @@ namespace ProjectCRUDLoginFormApp
             {
                 sqlConn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter("spShowTableInPanelAdmin", sqlConn);
-                DataTable dt = new DataTable();
+                dt = new DataTable();
                 sda.Fill(dt);
                 dataTableViev.DataSource = dt;
             }
@@ -121,5 +121,12 @@ namespace ProjectCRUDLoginFormApp
             lWelcome.Text = "Hi, " + Uname.ToUpper() + " " + Lname.ToUpper();
         }
         #endregion
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = new DataView(dt);
+            dv.RowFilter = string.Format("FirstName LIKE '%{0}%' OR LastName LIKE '%{0}%' OR Email LIKE '%{0}%' OR Login LIKE '%{0}%'", txtSearch.Text);
+            dataTableViev.DataSource = dv;
+        }
     }
 }

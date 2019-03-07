@@ -13,6 +13,7 @@ namespace ProjectCRUDLoginFormApp
 
         private String fname;
         private String lname;
+        private String email;
 
         #region Constructor
         public LoginForm()
@@ -52,39 +53,65 @@ namespace ProjectCRUDLoginFormApp
         #region Other Methods
         private void logIn()
         {
-            using (SqlConnection conn = new SqlConnection(connString))
+            if (rbAdmin.Checked == true)
             {
-                SqlCommand cmd = new SqlCommand("spLogInChecking", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Login", txtLogin.Text);
-                cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
-                conn.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataSet dataSet = new DataSet();
-                adapter.Fill(dataSet);
-
-                int count = dataSet.Tables[0].Rows.Count;
-
-                if (count == 1)
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    this.getUserNameAndLastName(txtLogin.Text);
-                    this.Hide();
-                    AdminPanel adminPanel = new AdminPanel();
-                    adminPanel.Uname = fname.Trim();
-                    adminPanel.Lname = lname.Trim();
-                    adminPanel.Show();
+                    SqlCommand cmd = new SqlCommand("spLogInCheckingAdmin", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Login", txtLogin.Text);
+                    cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+                    conn.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet);
+
+                    int counter = dataSet.Tables[0].Rows.Count;
+
+                    if (counter == 1)
+                    {
+                        this.getUserInfoAsAdmin(txtLogin.Text);
+                    }
+                    else
+                    {
+                        txtLogin.Text = "";
+                        txtPassword.Text = "";
+                        MessageBox.Show("Check login/password or wrong rights!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        txtLogin.Focus();
+                    }
                 }
-                else
+            }
+            else if (rbNormalUser.Checked == true)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    txtLogin.Text = "";
-                    txtPassword.Text = "";
-                    MessageBox.Show("Wrong login or password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    txtLogin.Focus();
+                    SqlCommand cmd = new SqlCommand("spLogInCheckingNormalUser", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Login", txtLogin.Text);
+                    cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+                    conn.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet);
+
+                    int counter = dataSet.Tables[0].Rows.Count;
+
+                    if (counter == 1)
+                    {
+                        this.getUserInfo(txtLogin.Text);
+                    }
+                    else
+                    {
+                        txtLogin.Text = "";
+                        txtPassword.Text = "";
+                        MessageBox.Show("Check login/password or wrong rights!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        txtLogin.Focus();
+                    }
                 }
             }
         }
 
-        private void getUserNameAndLastName(String Login)
+        private void getUserInfoAsAdmin(string Login)
         {
             using (SqlConnection con = new SqlConnection(connString))
             {
@@ -100,6 +127,35 @@ namespace ProjectCRUDLoginFormApp
                     lname = rdr["LastName"].ToString();
                 }
             }
+            this.Hide();
+            AdminPanel adminPanel = new AdminPanel();
+            adminPanel.Uname = fname.Trim();
+            adminPanel.Lname = lname.Trim();
+            adminPanel.Show();
+        }
+        private void getUserInfo(string Login)
+        {
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand("spGetUserInfo", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Login", txtLogin.Text);
+                con.Open();
+                cmd.ExecuteScalar();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    fname = rdr["FirstName"].ToString();
+                    lname = rdr["LastName"].ToString();
+                    email = rdr["Email"].ToString();
+                }
+            }
+            this.Hide();
+            NormalUserPanel normaluser = new NormalUserPanel();
+            normaluser.FName = fname.Trim();
+            normaluser.LName = lname.Trim();
+            normaluser.UEmail = email.Trim();
+            normaluser.Show();
         }
         #endregion
     }

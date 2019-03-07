@@ -37,8 +37,10 @@
             this.bRegistration = new System.Windows.Forms.Button();
             this.lInfoRegistration = new System.Windows.Forms.Label();
             this.lDragControl = new System.Windows.Forms.Label();
-            this.dragControl1 = new DragControlDemo.DragControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.rbAdmin = new System.Windows.Forms.RadioButton();
+            this.rbNormalUser = new System.Windows.Forms.RadioButton();
+            this.dragControl1 = new DragControlDemo.DragControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +82,7 @@
             // bLogin
             // 
             this.bLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bLogin.Location = new System.Drawing.Point(12, 336);
+            this.bLogin.Location = new System.Drawing.Point(12, 360);
             this.bLogin.Name = "bLogin";
             this.bLogin.Size = new System.Drawing.Size(146, 46);
             this.bLogin.TabIndex = 5;
@@ -91,7 +93,7 @@
             // bExit
             // 
             this.bExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bExit.Location = new System.Drawing.Point(164, 336);
+            this.bExit.Location = new System.Drawing.Point(164, 360);
             this.bExit.Name = "bExit";
             this.bExit.Size = new System.Drawing.Size(146, 46);
             this.bExit.TabIndex = 6;
@@ -133,10 +135,6 @@
             this.lDragControl.Text = "drag me";
             this.lDragControl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // dragControl1
-            // 
-            this.dragControl1.SelectControl = this.lDragControl;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::ProjectCRUDLoginFormApp.Properties.Resources.loginForm_picture;
@@ -146,6 +144,34 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // rbAdmin
+            // 
+            this.rbAdmin.AutoSize = true;
+            this.rbAdmin.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.rbAdmin.Location = new System.Drawing.Point(164, 325);
+            this.rbAdmin.Name = "rbAdmin";
+            this.rbAdmin.Size = new System.Drawing.Size(78, 25);
+            this.rbAdmin.TabIndex = 10;
+            this.rbAdmin.Text = "Admin";
+            this.rbAdmin.UseVisualStyleBackColor = true;
+            // 
+            // rbNormalUser
+            // 
+            this.rbNormalUser.AutoSize = true;
+            this.rbNormalUser.Checked = true;
+            this.rbNormalUser.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.rbNormalUser.Location = new System.Drawing.Point(80, 325);
+            this.rbNormalUser.Name = "rbNormalUser";
+            this.rbNormalUser.Size = new System.Drawing.Size(63, 25);
+            this.rbNormalUser.TabIndex = 11;
+            this.rbNormalUser.TabStop = true;
+            this.rbNormalUser.Text = "User";
+            this.rbNormalUser.UseVisualStyleBackColor = true;
+            // 
+            // dragControl1
+            // 
+            this.dragControl1.SelectControl = this.lDragControl;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -153,6 +179,8 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(323, 490);
+            this.Controls.Add(this.rbNormalUser);
+            this.Controls.Add(this.rbAdmin);
             this.Controls.Add(this.lDragControl);
             this.Controls.Add(this.lInfoRegistration);
             this.Controls.Add(this.bRegistration);
@@ -188,6 +216,8 @@
         private DragControlDemo.DragControl dragControl1;
         public System.Windows.Forms.TextBox txtLogin;
         public System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.RadioButton rbAdmin;
+        private System.Windows.Forms.RadioButton rbNormalUser;
     }
 }
 
