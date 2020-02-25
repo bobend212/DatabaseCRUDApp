@@ -1,7 +1,7 @@
 # C# WinForms SQL CRUD App
 ---
 #### `Short description`
-> Desktop CRUD Application with GUI and admin/normal user authentication and registration.
+> Desktop CRUD Application with GUI and admin/normal user authorization and registration.
 Admin have own dashboard and can:
 - view list of users in database
 - add new users or admins
