@@ -229,11 +229,8 @@
             // 
             // tipSearchBar
             // 
-            this.tipSearchBar.AutomaticDelay = 100;
-            this.tipSearchBar.AutoPopDelay = 1000;
+            this.tipSearchBar.AutomaticDelay = 1000;
             this.tipSearchBar.ForeColor = System.Drawing.Color.Red;
-            this.tipSearchBar.InitialDelay = 20;
-            this.tipSearchBar.ReshowDelay = 50;
             // 
             // dragControl1
             // 

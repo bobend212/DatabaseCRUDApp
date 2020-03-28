@@ -15,6 +15,7 @@ namespace ProjectCRUDLoginFormApp
         public AdminPanel()
         {
             InitializeComponent();
+            RefreshTable();
         }
 
         #region Button Methods 
@@ -61,9 +62,10 @@ namespace ProjectCRUDLoginFormApp
                 {
                     DeleteRecord();
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Select record to delete...", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Select record to delete..." + ex, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -81,7 +83,8 @@ namespace ProjectCRUDLoginFormApp
                     dataTableViev.SelectedRows[0].Cells[6].Value.ToString()
                     );
                 aU.Show();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Refresh table and select row which you want update.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -112,8 +115,8 @@ namespace ProjectCRUDLoginFormApp
                 cmd.Parameters.AddWithValue("@ID", dataTableViev.SelectedRows[0].Cells[0].Value.ToString());
                 cmd.ExecuteNonQuery();
             }
-                int currCell = dataTableViev.CurrentCell.RowIndex;
-                dataTableViev.Rows.RemoveAt(currCell);
+            int currCell = dataTableViev.CurrentCell.RowIndex;
+            dataTableViev.Rows.RemoveAt(currCell);
         }
 
         private void AdminPanel_Load(object sender, EventArgs e)

@@ -11,9 +11,10 @@ namespace ProjectCRUDLoginFormApp
         private string connString = ConfigurationManager.ConnectionStrings
             ["ProjectCRUDLoginFormApp.Properties.Settings.ProjectCRUDLoginFormConnectionString"].ConnectionString;
 
-        private String fname;
-        private String lname;
-        private String email;
+        private string fname;
+        private string lname;
+        private string email;
+        private string userId;
 
         #region Constructor
         public LoginForm()
@@ -53,7 +54,7 @@ namespace ProjectCRUDLoginFormApp
         #region Other Methods
         private void logIn()
         {
-            if (rbAdmin.Checked == true)
+            if (rbAdmin.Checked)
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
@@ -81,7 +82,7 @@ namespace ProjectCRUDLoginFormApp
                     }
                 }
             }
-            else if (rbNormalUser.Checked == true)
+            else if (rbNormalUser.Checked)
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
@@ -133,7 +134,7 @@ namespace ProjectCRUDLoginFormApp
             adminPanel.Lname = lname.Trim();
             adminPanel.Show();
         }
-        private void getUserInfo(string Login)
+        private void getUserInfo(string login)
         {
             using (SqlConnection con = new SqlConnection(connString))
             {
@@ -148,6 +149,7 @@ namespace ProjectCRUDLoginFormApp
                     fname = rdr["FirstName"].ToString();
                     lname = rdr["LastName"].ToString();
                     email = rdr["Email"].ToString();
+                    userId = rdr[0].ToString();
                 }
             }
             this.Hide();
@@ -155,6 +157,7 @@ namespace ProjectCRUDLoginFormApp
             normaluser.FName = fname.Trim();
             normaluser.LName = lname.Trim();
             normaluser.UEmail = email.Trim();
+            normaluser.UId = userId.Trim();
             normaluser.Show();
         }
         #endregion
