@@ -137,6 +137,8 @@ namespace ProjectCRUDLoginFormApp
                     sqlCmd.ExecuteNonQuery();
                     RefreshTable();
                 }
+                MessageBox.Show("Note changed successfully.", "Update note", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
         }
     }
