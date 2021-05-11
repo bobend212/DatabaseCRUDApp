@@ -54,8 +54,4 @@ The application was created in C# Win Forms and SQL, using Visual Studio 2017 an
 #### `Inspiration`
 I made this because it was good excercise to learn for future and it gave me so much good practises and experiences with C# combined with SQL.
 
-### `Contact`
--- --
-Created by Mateusz Konopka [@mateusz.konopka11@gmail.com] - feel free to contact me!
-
 mk
